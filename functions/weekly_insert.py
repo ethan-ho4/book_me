@@ -7,7 +7,18 @@
 from googleapiclient.discovery import build
 # from googleapiclient.errors import HttpError
 
-def event_insert(service,summary, location, start_date_time, end_date_time, timezone):
+def event_weekly_insert(service, summary, location, start_date_time, end_date_time, timezone, day):
+    day_dict = {
+    "Monday": "MO",
+    "Tuesday": "TU",
+    "Wednesday": "WE",
+    "Thursday": "TH",
+    "Friday": "FR",
+    "Saturday": "SA",
+    "Sunday": "SU"
+    }
+
+    set_day = day_dict(day, "Invalid day")
 
     event = {
     'summary': summary, #'Google I/O 2015'
@@ -21,6 +32,10 @@ def event_insert(service,summary, location, start_date_time, end_date_time, time
         'dateTime': end_date_time, # '2015-05-28T17:00:00-07:00'
         'timeZone': timezone, # 'America/Los_Angeles'
     },
+    'recurrence': [
+        f"RRULE:FREQ=WEEKLY;BYDAY={set_day}"
+
+    ],
     'reminders': {
         'useDefault': False,
         'overrides': [
