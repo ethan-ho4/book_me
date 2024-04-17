@@ -1,3 +1,4 @@
 credentials.json
 /__pycache__
 /functions/__pycache__
+token.json
